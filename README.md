@@ -6,7 +6,7 @@ This script will prompt you to enter your canvas log-in and class name and then 
 
 ## Usage
 
-```Command Prompt
+```bash
 Username: (Put your username here)
 Password: (Put your password here)
 
@@ -16,6 +16,7 @@ CPE-315-05-2208 - Computer Architecture
 MATH-244-01-2208 - Linear Analysis I
 
 What class do you want to join? (input class name here) 
+
 "Example: bus", this doesn't need full class name
 ```
 
