@@ -16,6 +16,6 @@ CPE-315-05-2208 - Computer Architecture
 MATH-244-01-2208 - Linear Analysis I
 
 What class do you want to join? (input class name here) 
-Example: bus -> doesn't need full class name
+"Example: bus", this doesn't need full class name
 ```
-This script will prompt you to enter you canvas log-in and class to enter and then you'll automatically be entered into the requested zoom call
+
