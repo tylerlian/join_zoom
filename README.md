@@ -65,11 +65,14 @@ Input the classname or the zoom meeting id to join the zoom call.
 ### python zoom.py -g/get [classname/zoom_id]
 Input your classname to get the respective zoom meeting id or input the zoom meeting id to get the name of the class.
 
+
 ### python zoom.py -a/add [classname] [zoom_id] [zoom_link]
 Add an addition to the SQL Zoom table in order to save your class information.
 
+
 ### python zoom.py -d/del [classname/zoom_id]
 Delete a class from the SQL Zoom table based on either the classname or zoom meeting id.
+
 
 ## Shortcut Creation
 
