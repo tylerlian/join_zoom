@@ -106,9 +106,11 @@ def prompt_login(driver):
     login(driver)
     while True:
         try:
-            driver.find_element_by_id("my_courses_table")
+            driver.find_element_by_id("username")
+            login(driver)
+        except: 
+            input("\nPlease do your dual verification then press 'enter'.\n")
             break
-        except: login(driver)
 
 def option_navigate():
     driver = open_link(CANVAS_LINK)
