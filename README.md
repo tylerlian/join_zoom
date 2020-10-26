@@ -1,5 +1,5 @@
 # Automatically Join Zoom Call Script
-Utilizes python, selenium, docker, sql
+This is a python script that can be used to create shortcuts to automatically join your zoom lectures and save the hassle of having to navigate Canvas everytime to join your class. It includes the use of an online database so you can share meeting ids with your friends and classmates to streamline the process! The script is created utilizing python, selenium, docker, and sql. 
 
 ## Summary
 Python script in order to create shortcuts to automatically join your zoom lectures.
