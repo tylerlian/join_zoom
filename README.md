@@ -1,5 +1,5 @@
 # Automatically Join Zoom Calls
-Utilizes python, selenium
+Utilizes python, selenium, docker, sql
 
 ## Summary
 This script will prompt you to enter your canvas log-in and class name and then you'll automatically be entered into the requested zoom call
