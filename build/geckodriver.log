@@ -597,3 +597,19 @@ JavaScript warning: https://api-688b4b63.duosecurity.com/frame/static/shared/lib
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1603678562721	geckodriver	INFO	Listening on 127.0.0.1:60542
+1603678565831	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\tyler\\AppData\\Local\\Temp\\rust_mozprofileY7dCiS"
+*** You are running in headless mode.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1603678569605	Marionette	INFO	Listening on port 60551
+1603678570090	Marionette	WARN	TLS certificate errors will be ignored for this session
+1603678572484	Marionette	INFO	Stopped listening on port 60551
+1603678629941	geckodriver	INFO	Listening on 127.0.0.1:60661
+1603678633031	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\Users\\tyler\\AppData\\Local\\Temp\\rust_mozprofilepPgWGe"
+*** You are running in headless mode.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
+1603678637123	Marionette	INFO	Listening on port 60669
+1603678637311	Marionette	WARN	TLS certificate errors will be ignored for this session
+1603678639882	Marionette	INFO	Stopped listening on port 60669

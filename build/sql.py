@@ -5,7 +5,7 @@ import sys
 HOST = 'sql3.freemysqlhosting.net'
 DATABASE = 'sql3372531'
 USER = 'sql3372531'
-PASSWORD = '56ZsfHQjDI'
+PASSWORD = ''
 
 def open_connection():
     connection = connect_sql()
