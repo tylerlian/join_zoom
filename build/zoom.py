@@ -17,8 +17,13 @@ COMMANDS = ["python zoom.py -n/navi",
             "python zoom.py -d/del [classname/zoom_id]"
             "python zoom.py -s/show"]
 
-# opens headless window with link provided
 def open_link(link):
+    """ Opens headless window with link provided
+    Args:
+        link(str): link to the zoom meeting
+    Returns:
+        None
+    """        
     options = webdriver.FirefoxOptions()
     options.headless = True
     profile = webdriver.FirefoxProfile(DEFAULT_PROFILE)
@@ -26,8 +31,13 @@ def open_link(link):
     driver.get(link)
     return driver
 
-# logins to the website by referencing the element id's: username & password
 def login(driver):
+    """ Login to the website by referencing the element id's: username & password
+    Args:
+        driver(webdriver): the selenium browser logged into the student's canvas
+    Returns:
+        None
+    """  
     username = driver.find_element_by_id("username")
     userKey = input("Enter your username: ")
     username.clear()
@@ -38,8 +48,13 @@ def login(driver):
     password.send_keys(Keys.ENTER)
     time.sleep(4)
 
-# returns the courses from the canvas course table
 def get_courses(driver):
+    """ Returns the courses from the canvas course table
+    Args:
+        driver(webdriver): the selenium browser logged into the student's canvas
+    Returns:
+        d(dict): dictionary containing all the courses from the student's canvas
+    """  
     courseTable = driver.find_element_by_id("my_courses_table")
     tbody = courseTable.find_element_by_tag_name("tbody")
     tr = tbody.find_elements_by_tag_name("tr")
@@ -53,8 +68,14 @@ def get_courses(driver):
     for key in d.keys(): print(key)
     return d
 
-# Goes to the Canvas course page and selects
 def choose_course(driver, d):
+    """ Goes to the Canvas course page and selects specified course
+    Args:
+        driver(webdriver): the selenium browser logged into the student's canvas
+        d(dict): dictionary containing all the courses from the student's canvas
+    Returns:
+        None
+    """  
     while(True):
         choice = input("\nWhat class do you want to join? ")
         for key in d.keys():
@@ -66,8 +87,13 @@ def choose_course(driver, d):
                 sys.exit()
         print("Class does not exist.")
     
-# Clicks the zoom tab on Canvas and joins the most recent link
 def open_zoom(driver):
+    """ Clicks the zoom tab on Canvas and joins the most recent link
+    Args:
+        driver(webdriver): the selenium browser logged into the student's canvas
+    Returns:
+        None
+    """  
     time.sleep(2)
     driver.find_element_by_link_text("Zoom").click()
     time.sleep(2)
@@ -79,22 +105,38 @@ def open_zoom(driver):
     driver.get(driver.current_url)
     time.sleep(2)
 
-# checks what kind of zoom link it is
 def check_link(link):
+    """ Checks what kind of zoom link it is
+    Args:
+        link(str): zoom link that is requested to be opened
+    Returns:
+        None
+    """  
     if link[1] == "j":
         link = "https://calpoly.zoom.us" + link
     elif link[1] == "l":
         link = "https://applications.zoom.us" + link
     return link
 
-# joins the zoom link provided
 def join_link(link):
+    """ Joins the zoom link provided
+    Args:
+        link(str): zoom link that is requested to be opened
+    Returns:
+        None
+    """  
     link = check_link(link)
     driver = open_link(link)
     driver.refresh()
     driver.quit()
 
 def get_id(num):
+    """ Obtains the class based off of ID located in the SQL table
+    Args:
+        num(int): number of classes located in the SQL table
+    Returns:
+        None
+    """  
     if num == 0: print("No classes available.")
     id = int(input("Input the SQL ID you want to join: "))
     while(1 > id or num-1 < id):
@@ -103,6 +145,12 @@ def get_id(num):
     return str(id)
 
 def prompt_login(driver):
+    """ Prompts the user for the dual login and information to log in to Canvas/Zoom
+    Args:
+        driver(webdriver): the selenium browser logged into the student's canvas
+    Returns:
+        None
+    """  
     login(driver)
     while True:
         try:
@@ -113,22 +161,46 @@ def prompt_login(driver):
             break
 
 def option_navigate():
+    """ Student helps to navigate through Canvas to open zoom through Canvas
+    Args:
+        None
+    Returns:
+        None
+    """  
     driver = open_link(CANVAS_LINK)
     prompt_login(driver)
     classes = get_courses(driver)
     choose_course(driver, classes)
 
 def option_help():
+    """ Shows user the commands that can be used with this application
+    Args:
+        None
+    Returns:
+        None
+    """  
     print("List of commands: ")
     for command in COMMANDS: print(command)
 
 def option_id(cursor):
+    """ Opens zoom link through ID in the SQL table
+    Args:
+        cursor(mysql): This is the connection object to the specific zoom data table
+    Returns:
+        None
+    """  
     num = show_table(cursor, 2)
     id = get_id(num)
     link = join_id(cursor, id)
     join_link(link)
 
 def option_join(cursor):
+    """ Joins the designated zoom class requested by the user in the system arguments
+    Args:
+        cursor(mysql): This is the connection object to the specific zoom data table
+    Returns:
+        None
+    """  
     if sys.argv[2].isdigit():
         link = join_meeting(cursor, "'%" + sys.argv[2] + "%'")
         join_link(link) if link != None else print("Invalid meeting id.")
@@ -137,6 +209,12 @@ def option_join(cursor):
         join_link(link) if link != None else print("Invalid classname.")
 
 def option_get(cursor):
+    """ Gets the meeting id of the designated class
+    Args:
+        cursor(mysql): This is the connection object to the specific zoom data table
+    Returns:
+        None
+    """  
     if sys.argv[2].isdigit():
         classname = get_classname(cursor, "'%" + sys.argv[2] + "%'")
         print("Class name: " + classname) if classname != None else print("Invalid meeting id.")
@@ -145,6 +223,12 @@ def option_get(cursor):
         print("Meeting ID: " + id) if id != None else print("Invalid class name.")
 
 def no_access_sql():
+    """ Deals with commands that don't access the SQL table
+    Args:
+        None
+    Returns:
+        None
+    """  
     if len(sys.argv) == 1:
         print("Show all commands with 'python zoom.py -h/help'")
         exit()
@@ -156,6 +240,13 @@ def no_access_sql():
         exit()
 
 def access_sql(connection, cursor):
+    """ Chooses the command to run based on user input (Accesses the SQL data table)
+    Args:
+        connection(mysql): This is the connection object to the database
+        cursor(mysql): This is the connection object to the specific zoom data table
+    Returns:
+        None
+    """  
     if sys.argv[1] in ["-s", "show"]: # shows all data inside the sql table
         show_table(cursor, 4)
     elif sys.argv[1] in ["-a", "add"] and len(sys.argv) == 5: # inserts row into the sql table
@@ -171,8 +262,13 @@ def access_sql(connection, cursor):
     else: # incorrect command from user
         print("Show all commands with 'python zoom.py -h/help'")
 
-# decides what command to run check documentation to figure out what command does what
 def main():
+    """ Main function
+    Args:
+        None
+    Returns:
+        None
+    """  
     no_access_sql() # commands that don't need sql table
     connection, cursor = open_connection() # opens connection to sql table
     access_sql(connection, cursor) # commands that do need the sql table
